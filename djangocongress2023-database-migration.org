@@ -28,3 +28,6 @@
 - 機能(views)の置き場所
 ** データのライフサイクル
 - INSERT,UPDATE,DELETE
+** データの管理
+- データフィクスチャ
+- migrationでデータ投入は是か非か
