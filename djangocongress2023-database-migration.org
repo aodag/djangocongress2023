@@ -1,0 +1,30 @@
+#+TITLE: django migrationで学ぶデータベース設計
+#+AUTHOR: Atsushi Odagiri
+#+DATE: 2023-10-07
+#+BEAMER_THEME: Madrid
+#+BEAMER_COLOR_THEME: beetle
+#+OPTIONS: H:2 toc:t num:t
+#+OPTIONS: ^:{}
+#+LaTeX_CLASS: beamer
+#+LaTeX_HEADER: \usepackage{luatexja}
+#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col)
+
+* 正規化
+** 正規化しろ
+- 正規化はmigrationにも効く
+** データベース設計と正規化
+- なぜ正規化するか
+- 正規化の目的
+** 正規化の方法
+- 第一正規化
+- 第二正規化
+- 第三正規化
+** 正規化の効果
+- データ空間効率
+- 依存関係とスキーママイグレーション
+* django apps
+** モデルと機能
+- モデルの置き場所
+- 機能(views)の置き場所
+** データのライフサイクル
+- INSERT,UPDATE,DELETE

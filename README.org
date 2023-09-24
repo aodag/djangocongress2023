@@ -1,0 +1,5 @@
+#+TITLE: djangocongress2023
+
+* django migrationで学ぶデータベース設計
+
+* LT
