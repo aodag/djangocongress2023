@@ -9,6 +9,13 @@
 #+LaTeX_HEADER: \usepackage{luatexja}
 #+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col)
 
+* django migrationで学ぶデータベース設計
+
+** はじめに
+djangoにはmigrationというデータベーススキーマの変更を管理するツールがあります。
+非常にありがたい存在のdjango migrationがやってくれることを今一度確認してみましょう。
+データベース設計やオブジェクト指向設計などの面から安全で影響の少ないテーブル変更を考えてみましょう。
+
 * 正規化
 ** 正規化しろ
 - 正規化はmigrationにも効く
@@ -19,9 +26,37 @@
 - 第一正規化
 - 第二正規化
 - 第三正規化
+** 第一正規化
+- 繰り返しの排除
+** 第二正規化
+- 部分関数従属性
+** 第三正規化
+- 推移関数従属性
 ** 正規化の効果
 - データ空間効率
 - 依存関係とスキーママイグレーション
+* テーブル設計
+** 現実するもののデータ
+- マスタ
+- エンティティ
+- 人モノコト金
+** 発生するデータ
+- イベント
+- トランザクション
+- 申込み決済
+** 補助的なデータ
+- サマリー
+- 集計
+* データベースの型
+** 列挙型
+- https://www.postgresql.jp/docs/9.2/datatype-enum.html
+- https://dev.mysql.com/doc/refman/8.0/ja/enum.html
+- あんまりよくない？
+** django.db.models.TextChoices, IntegerChoices
+- アプリケーションに依存
+** 参照テーブル
+- データがスキーマ定義に必要
+- マイグレーションにデータ操作が入り込む
 * django apps
 ** モデルと機能
 - モデルの置き場所
