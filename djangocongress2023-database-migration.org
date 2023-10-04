@@ -16,9 +16,44 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
 非常にありがたい存在のdjango migrationがやってくれることを今一度確認してみましょう。
 データベース設計やオブジェクト指向設計などの面から安全で影響の少ないテーブル変更を考えてみましょう。
 
+* スキーママイグレーション
+** スキーマの構成要素
+- table
+- column
+- index
+- constraints
+  - null
+  - foreign key
+  - unique
+** スキーマの操作
+- alter table
+- add column
+- drop column
+- rename
+- modify column
+- drop constraints
 ** django migrate
+- makemigrations
+- migrate
+- sqlmigrate
+- showmigrations
+** sqlmigrate
+** 複数のdjango appにまたがってdowngradeする
+- 人類に制御しきれるのか？
 
-* 正規化
+* 論理設計
+** 現実するもののデータ
+- マスタ
+- エンティティ
+- 人モノコト金
+** 発生するデータ
+- イベント
+- トランザクション
+- 申込み決済
+** 補助的なデータ
+- サマリー
+- 集計
+* 物理設計
 ** 正規化しろ
 - 正規化はmigrationにも効く
 ** データベース設計と正規化
@@ -54,19 +89,6 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
   
 ** モデル設計と正規化
 
-* テーブル設計
-** 現実するもののデータ
-- マスタ
-- エンティティ
-- 人モノコト金
-** 発生するデータ
-- イベント
-- トランザクション
-- 申込み決済
-** 補助的なデータ
-- サマリー
-- 集計
-* データベースの型
 ** 列挙型
 - https://www.postgresql.jp/docs/9.2/datatype-enum.html
 - https://dev.mysql.com/doc/refman/8.0/ja/enum.html
@@ -80,6 +102,11 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
 ** モデルと機能
 - モデルの置き場所
 - 機能(views)の置き場所
+** アクター、ユースケースの違いで分ける
+- アクター、ユースケースの違い = ライフサイクルの違い
+- 別の人が情報を追加する = 別のユースケース
+- 正規化では見つけられないかも？
+- ユースケースごとにdjango appを作る
 ** 行単位のライフサイクル
 - INSERT,UPDATE,DELETE
 ** カラム単位のライフサイクル
@@ -91,30 +118,6 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
 ** データの管理
 - データフィクスチャ
 - migrationでデータ投入は是か非か
-* スキーママイグレーション
-** スキーマの構成要素
-- table
-- column
-- index
-- constraints
-  - null
-  - foreign key
-  - unique
-** スキーマの操作
-- alter table
-- add column
-- drop column
-- rename
-- modify column
-- drop constraints
-** djangoのスキーママイグレーション
-- makemigrations
-- migrate
-- sqlmigrate
-- showmigrations
-** sqlmigrate
-** 複数のdjango appにまたがってdowngradeする
-- 人類に制御しきれるのか？
 * django ORMとオブジェクト指向
 ** オブジェクト指向との折り合い
 - インターフェイス最小の原則
