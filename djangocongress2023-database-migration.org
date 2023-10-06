@@ -125,6 +125,40 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
   - ドメインオブジェクトの発見： その情報に名前をつけ、モデルなのでは？
   - インターフェイス分離： そのdjango appではそのモデルだけを処理対象にできるのでは？
   - 開放閉鎖の原則: 生成もとのdjango appに影響を与えずに新たなモデルのみを変更可能か？
+    
+** モデル分割の実際
+
+Aアプリのモデル ~ModelA~ から, Bアプリの ~ModelB~ に一部分離する
+
+- Bアプリ ~ModelB~ のテーブル追加
+- Aアプリ ~ModelA~ のテーブルから該当フィールドに対応するカラムのデータを ~ModelB~ のテーブルにコピー
+  - UPDATE JOIN とか UPDATE SELECT とかデータベースごとに違う！
+  - あとこれAとBのどっちのmigrationsに入れるべき？
+- Aアプリから該当カラム削除
+  - ALTER TABLE a_amodel DROP COLUMN ...
+  - テーブル再構築のコストがかかるやつ
+  - しかも一度に複数カラムをDROPできない
+- カラム削除があるのでカナリアやブルーグリーン不可能
+
+** モデル分割
+
+- 一時的にテーブルの一部分だけを他のテーブルに見せかけることができれば！
+- データマッパーのORMだったらできたのに！
+
+** 更新可能VIEW！
+
+- djangoのviewじゃないよ
+- RDBMSの機能
+- ある条件で作成されたVIEWは更新も可能
+  - クエリ対象が1テーブルのみ
+  - 集約を含まない
+  - SELECTに主キーを含む
+  - SELECTに計算を含まない
+  - ...
+
+** とはいえ
+- レイヤーの違う部分のハックは別の問題を持ち込みやすいので注意
+- 問題解決にとてもコストがかかる...
 
 * まとめ
 
@@ -134,11 +168,13 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
 - データベース設計やオブジェクト指向設計などの知見を活かしましょう
   - 他にも活かせるものはたくさんあるはず
 - 小さいことはいいことだ
-
+- 原理原則やベストプラクティスに生きていけないから人は悩むのです
 
 ** 参考文献
-- MySQL 8.0 リファレンスマニュアル / 15.12.1 オンライン DDL 操作, https://dev.mysql.com/doc/refman/8.0/ja/innodb-online-ddl-operations.html
+- プログラマのためのSQL 第4版 すべてを知り尽くしたいあなたに, Joe Celko, ISBN ISBN-13978-4798128023
 - ユースケース駆動開発実践ガイド, ダグ・ローゼンバーグ, ISBN 978-4798114453
+- Let's POSTGRES! / PostgreSQL 9.3の新機能: 更新可能VIEW, https://lets.postgresql.jp/documents/technical/9.3/updatable_view/1
+- MySQL 8.0 リファレンスマニュアル / 15.12.1 オンライン DDL 操作, https://dev.mysql.com/doc/refman/8.0/ja/innodb-online-ddl-operations.html
 
 * COMMENT スキーママイグレーション
 ** スキーマの構成要素
