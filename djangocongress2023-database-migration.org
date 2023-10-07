@@ -11,14 +11,30 @@
 
 * django migrationで学ぶデータベース設計
 
-  
-** お前誰よ
 
-- aodag
-- Atsushi ODAGiri
-- 株式会社オープンコレクター
-- python ... 1.5 くらい
-- django ... 0.96とかsvnのリビジョンで安定してるやつとか
+** お前誰よ
+***  
+:PROPERTIES:
+:BEAEMER_COL: 0.48
+:BEAMER_ENV: block
+:END:
+   - Atsushi Odagiri
+   - Open Collector
+   - Pythonは1.5くらいのころから
+
+*** 
+:PROPERTIES:
+:BEAEMER_COL: 0.48
+:BEAMER_ENV: block
+:END:
+
+#+ATTR_LATEX: :width 2cm
+[[./r-penta512.png]]
+
+#+ATTR_LATEX: :width 2cm
+[[./oc-logo.png]]
+#+ATTR_LATEX: :width 2cm
+[[./logo-w.png]]
 
 ** アプリケーション開発主導でスキーマを管理する
 
