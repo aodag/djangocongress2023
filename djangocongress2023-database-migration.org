@@ -210,6 +210,41 @@ djangoにはmigrationというデータベーススキーマの変更を管理�
 
 - 必要のないモデルにアクセスしない
 
+** 関連オブジェクト
+
+- 利用者が蔵書を借りているという状態の表現
+- 利用者と蔵書を関連付ける
+- 利用者から蔵書への one-to-many で良いか？
+- 貸出日などの付加的な情報
+- 貸出という概念を発見
+*** 利用者と蔵書を直接関連させる
+#+begin_src plantuml :file relation.png :exports results
+利用者 "1" - "*" 蔵書
+#+end_src
+
+#+ATTR_LATEX: :width 0.3\linewidth
+#+RESULTS:
+[[file:relation.png]]
+
+
+*** 利用者と蔵書の関連をオブジェクトで表す
+#+begin_src plantuml :file relation-object.png :exports results
+利用者 "1" - "*" 貸出
+貸出 "1" - "1" 蔵書
+#+end_src
+
+#+ATTR_LATEX: :width 0.3\linewidth
+#+RESULTS:
+[[file:relation-object.png]]
+
+#+ATTR_LATEX: :width 0.3\linewidth
+
+** 関連オブジェクトに分離した意味
+
+- 利用者と蔵書を直接扱うのではなく貸出オブジェクトの生成に責任を分離
+- 貸出という処理で利用者や蔵書の詳細な情報は必要ない
+- 貸出ユースケースを取り扱うdjango appの独立性が高くなる
+
 * オブジェクト指向からデータベース設計へ
 ** django appsとモデル設計に活かす
 
